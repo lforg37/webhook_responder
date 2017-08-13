@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/local/bin/python
 from github_webhook import Webhook
 from flask import Flask
 import sys
