@@ -4,9 +4,13 @@ from flask import Flask
 import sys
 import socket
 
+secret = None
+
+if len(sys.argv) > 1:
+    secret = sys.argv[1]
+
 app = Flask(__name__)  # Standard Flask app
-webhook = Webhook(app) # Defines '/postreceive' endpoint
-secret = ""
+webhook = Webhook(app, secret=secret) # Defines '/postreceive' endpoint
 
 @webhook.hook()        # Defines a handler for the 'push' event
 def on_push(data):
@@ -16,6 +20,4 @@ def on_push(data):
         sock.close()
 
 if __name__ == "__main__":
-    if len(sys.argv == 2):
-        secret = sys.argv[1]
     app.run(host="0.0.0.0", port=80)
